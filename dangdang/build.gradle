@@ -1,0 +1,102 @@
+buildscript {
+	ext {
+		springBootVersion = '3.2.6'
+	}
+	repositories {
+		mavenCentral()
+		maven { url 'https://plugins.gradle.org/m2/' }
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "io.spring.gradle:dependency-management-plugin:1.1.4.RELEASE"
+	}
+
+	ext.profile = (!project.hasProperty('profile') || !profile) ? 'local' : profile
+	println "########## active_profile = $profile"
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	sourceCompatibility = '21'
+
+	repositories {
+		mavenCentral()
+	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+
+		configureEach {
+			// was tomcat 제외
+			exclude module: 'spring-boot-starter-tomcat'
+		}
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+//		implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-webflux'
+		implementation 'org.springframework.boot:spring-boot-starter-undertow'
+
+		runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+		runtimeOnly 'com.mysql:mysql-connector-j'
+
+		annotationProcessor 'org.projectlombok:lombok'
+		implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+		annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+		annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+		implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+//		implementation 'org.redisson:redisson-spring-boot-starter:3.27.1'
+
+		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+		implementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	test {
+		useJUnitPlatform()
+
+		testLogging {
+			events = ["passed", "failed"]
+		}
+		systemProperty "spring.profiles.active", profile
+		exclude '**/unit/**'  //단위테스트는 제외
+	}
+}
+
+project(':dangdang-myheart-api') {
+	dependencies {
+		implementation project(':dangdang-myheart-core')
+	}
+}
+
+/*
+project(':wconcept-myheart-core') {
+	bootJar { enabled = false } // core 은 bootJar 로 패키징 할 필요 없음
+	jar { enabled = true }
+}
+
+
+project(':wconcept-myheart-batch') {
+	dependencies {
+		implementation project(':wconcept-myheart-core')
+		implementation 'org.springframework.boot:spring-boot-starter-batch'
+		testImplementation 'org.springframework.batch:spring-batch-test'
+
+		implementation 'com.h2database:h2'
+	}
+}*/

@@ -1,0 +1,6 @@
+rootProject.name = 'dangdang'
+include 'dangdang-myheart'
+include 'dangdang-myheart-core'
+include 'dangdang-myheart-api'
+include 'dangdang-myheart-api'
+

@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/myheart?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.6
+  ds:
+    datasource:
+      hikari:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/aroo?characterEncoding=UTF-8
+        username: root
+        maximum-pool-size: 50
+        minimum-idle: 10
+        connection-timeout: 5000
+        validation-timeout: 1000
