@@ -1,0 +1,11 @@
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  batch:
+    job:
+      enabled: true
+      name: ${job.name:NONE}
+
+
+logging:
+  config: classpath:logback/logback-local.xml

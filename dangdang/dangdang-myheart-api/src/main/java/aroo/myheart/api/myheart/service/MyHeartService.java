@@ -7,6 +7,8 @@ import aroo.myheart.core.mongo.repository.MongoMyHeartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 @RequiredArgsConstructor
 public class MyHeartService {
@@ -24,13 +26,20 @@ public class MyHeartService {
     }
 
     public void test2() {
-        DsMyHeart build = DsMyHeart.builder()
-                .custNo(1L)
-                .productCd("1")
-                .brandCd("1")
-                .contentCd("1")
-                .build();
 
-        dsMyHeartRepository.save(build);
+        Random random = new Random(System.currentTimeMillis());
+
+        for(int i = 0; i < 100000; i++) {
+            Long ranNum = random.nextLong(10000000);
+
+            DsMyHeart build = DsMyHeart.builder()
+                    .custNo(ranNum)
+                    .productCd(Long.toString(ranNum))
+                    .brandCd(Long.toString(ranNum))
+                    .contentCd(Long.toString(ranNum))
+                    .build();
+            dsMyHeartRepository.save(build);
+        }
+
     }
 }

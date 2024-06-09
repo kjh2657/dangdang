@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @EnableMongoAuditing
-@EnableMongoRepositories(basePackages = {"aroo.myheart.core.mongo.repository"})
+@EnableMongoRepositories(basePackages = {"aroo.myheart.core.mongo"})
 @Configuration
 public class MongoDbConfig {
 }

@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+group 'aroo.myheart'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
