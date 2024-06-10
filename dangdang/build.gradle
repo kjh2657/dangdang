@@ -65,6 +65,10 @@ subprojects {
 		developmentOnly 'org.springframework.boot:spring-boot-devtools'
 		implementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+		implementation 'p6spy:p6spy:3.9.1'
+		implementation 'com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.9.0'
+
 	}
 
 	test {

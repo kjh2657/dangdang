@@ -33,7 +33,7 @@ public class TestPartitioner implements Partitioner {
             ExecutionContext value = new ExecutionContext();
 
             result.put("partion"+i, value);
-            value.putLong("startRow", i * pageSize);
+            value.putInt("startRow", i * pageSize);
         }
 
         return result;
